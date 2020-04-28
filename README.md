@@ -3,3 +3,5 @@ Basic hacking tools created with Python. To understand how Hacking works buildin
 
 The entire code is in Python , cheers !
 
+I learned this during a course on Udemy by the author Zaid Security
+
